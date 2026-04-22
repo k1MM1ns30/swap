@@ -19,7 +19,7 @@ html, body {
   width: 100%;
   max-width: 390px;
   margin: 0 auto;
-  background: linear-gradient(165deg, #1242e8 0%, #2060ff 35%, #5ba0ff 72%, #a8d4ff 100%);
+  background: linear-gradient(165deg, #0051ff 0%, #57a4ff 35%, #8fdaff 72%, #a8d4ff 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -194,13 +194,19 @@ html, body {
 .album-skeleton {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #0d3ab8, #1565c0, #1e88e5, #42a5f5);
+  background: linear-gradient(135deg, #d6f2ff, #6dceff, #29b6f6, #4fc3f7);
   animation: skelPulse 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes skelPulse {
-  from { opacity: 1; }
-  to   { opacity: 0.6; }
+  from {
+    opacity: 0.75;
+    filter: brightness(0.95);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1.15);
+  }
 }
 
 .album-skeleton.hidden {
