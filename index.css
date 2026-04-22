@@ -177,7 +177,7 @@ html, body {
   border-radius: 12px;
   overflow: hidden;
   z-index: 1;
-  background-color: #1555f0;
+  background-color: #14a5ff;
 }
 
 /* album art: grayscale + luminosity blend = blue duotone */
