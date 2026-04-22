@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>SWAP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+<div class="page">
+
+  <div class="logo">SWAP</div>
+
+  <!-- LOADING -->
+  <div class="loading-wrap" id="loadingWrap">
+    <div class="loading-ring"></div>
+    <div class="loading-text">Reading token…</div>
+  </div>
+
+  <!-- ERROR -->
+  <div class="error-wrap" id="errorWrap">
+    <div class="error-icon">⚠</div>
+    <div class="error-text">Could not load track.<br>Check the token URL.</div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content" id="mainContent">
+
+    <!-- ALBUM CARD -->
+    <div class="album-wrap">
+      <div class="album-glow"></div>
+      <div class="album-frame"></div>
+      <div class="album-img-wrap">
+        <div class="album-skeleton" id="skeleton"></div>
+        <img
+          class="album-img"
+          id="albumArt"
+          src=""
+          alt=""
+          style="display:none;"
+          onload="document.getElementById('skeleton').classList.add('hidden'); this.style.display='block';"
+        />
+        <div class="sparkle-layer" id="sparkleLayer"></div>
+      </div>
+    </div>
+
+    <!-- INFO CARD -->
+    <div class="info-card">
+      <div class="info-row">
+        <div class="info-key">Music</div>
+        <div class="info-val" id="trackName">—</div>
+      </div>
+      <div class="info-row">
+        <div class="info-key">Artist</div>
+        <div class="info-val" id="artistName">—</div>
+      </div>
+      <div class="info-row">
+        <div class="info-key">Genre</div>
+        <div class="info-val" id="genreName">—</div>
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="btn-row">
+      <a class="glass-btn" id="appleMusicBtn" href="#" target="_blank" rel="noopener">
+        <div class="btn-icon">♫</div>
+        <div class="btn-label">Apple<br>Music</div>
+      </a>
+      <div class="glass-btn" id="collectBtn">
+        <div class="btn-icon" id="collectIcon">○</div>
+        <div class="btn-label" id="collectLabel">Collect<br>Token</div>
+      </div>
+      <div class="glass-btn" id="shareBtn">
+        <div class="btn-icon">↗</div>
+        <div class="btn-label">Share<br>Token</div>
+      </div>
+    </div>
+
+    <div class="token-id" id="tokenId">TOKEN #— · SWAP 2025</div>
+
+  </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
