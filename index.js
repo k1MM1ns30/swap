@@ -83,7 +83,7 @@ async function fetchTrack() {
   }
 
   try {
-    const res  = await fetch(`https://itunes.apple.com/lookup?id=${trackId}&entity=song`);
+    const res = await fetch(`https://corsproxy.io/?url=https://itunes.apple.com/lookup?id=${trackId}&entity=song`);
     const json = await res.json();
     const item = json.results?.[0];
 
