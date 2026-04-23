@@ -100,26 +100,39 @@ async function fetchTrack() {
 // ─────────────────────────────────────────────────────────────────
 //  COLLECT TOGGLE — 수집 상태를 trackId별로 localStorage에 저장
 // ─────────────────────────────────────────────────────────────────
-let collected = false;
+let collected    = false;
+let collectTimer = null;
+
+function applyCollectUI(state) {
+  document.getElementById('collectIcon').textContent = state ? '●' : '○';
+  document.getElementById('collectLabel').innerHTML  = state ? 'Collected ✓' : 'Collect<br>Token';
+  document.getElementById('collectBtn').classList.toggle('collected', state);
+}
 
 function toggleCollect() {
   collected = !collected;
-  document.getElementById('collectIcon').textContent  = collected ? '●' : '○';
-  document.getElementById('collectLabel').textContent = collected ? 'Collected\n✓' : 'Collect\nToken';
-  document.getElementById('collectBtn').classList.toggle('collected', collected);
   localStorage.setItem(`swap_${trackId}`, collected ? '1' : '0');
+  applyCollectUI(collected);
 
-  document.querySelector('.album-img-wrap').animate(
+  const wrap      = document.querySelector('.album-img-wrap');
+  const willColor = collected; // 실행 시점이 아닌 현재 상태를 캡처
+
+  clearTimeout(collectTimer);
+  wrap.animate(
     [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(360deg)' }],
     { duration: 700, easing: 'ease-in-out' }
   );
-  setTimeout(() => {
-    document.querySelector('.album-img-wrap').classList.toggle('colored', collected);
+  collectTimer = setTimeout(() => {
+    wrap.classList[willColor ? 'add' : 'remove']('colored');
   }, 350);
 }
 
 function restoreCollectState() {
-  if (localStorage.getItem(`swap_${trackId}`) === '1') toggleCollect();
+  if (localStorage.getItem(`swap_${trackId}`) === '1') {
+    collected = true;
+    applyCollectUI(true);
+    document.querySelector('.album-img-wrap').classList.add('colored');
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────

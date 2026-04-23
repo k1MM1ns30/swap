@@ -180,18 +180,28 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
   overflow: hidden;
   z-index: 1;
   background-color: #0080ff;
-  filter: grayscale(100%);
-  transition: filter 0.8s ease;
   border: 2px solid rgba(255,255,255,0.95);
- border-radius: 14px;
+  border-radius: 14px;
 }
 
-.album-img-wrap.colored {
-  filter: grayscale(0%);
+/* 회색 블렌드 레이어로 채도 제거 — opacity 전환만 사용해서 브라우저 호환성 확보 */
+.album-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #808080;
+  mix-blend-mode: color;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.album-img-wrap.colored::after {
+  opacity: 0;
 }
 
 /* album art: tritone 컬러 필터 항상 적용 (래퍼의 grayscale이 덮음) */
