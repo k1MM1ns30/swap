@@ -12,7 +12,7 @@
 <body>
 <div class="page">
 
-  <div class="logo">SWAP</div>
+  <img class="logo" src="assets/swaplogo.svg" alt="SWAP" />
 
   <!-- LOADING -->
   <div class="loading-wrap" id="loadingWrap">
@@ -94,9 +94,9 @@
                 0.333 0.333 0.333 0 0
                 0     0     0     1 0"/>
       <feComponentTransfer in="dark_bw" result="dark_layer">
-        <feFuncR type="table" tableValues="0.090 1.0"/>
-        <feFuncG type="table" tableValues="0.584 1.0"/>
-        <feFuncB type="table" tableValues="1.0   1.0"/>
+        <feFuncR type="table" tableValues="0.45 1.0"/>
+        <feFuncG type="table" tableValues="0.4 1.0"/>
+        <feFuncB type="table" tableValues="1   1.0"/>
       </feComponentTransfer>
 
       <!-- MID: 노란 계열 강조 (Yellow=300, rest=-200) → #48c9ff ~ white -->
@@ -106,9 +106,9 @@
                 0.5  0.5  0    0 0
                 0    0    0    1 0"/>
       <feComponentTransfer in="mid_bw" result="mid_layer">
-        <feFuncR type="table" tableValues="0.282 1.0"/>
-        <feFuncG type="table" tableValues="1 1.0"/>
-        <feFuncB type="table" tableValues="1.0   1.0"/>
+        <feFuncR type="table" tableValues="0.3 1.0"/>
+        <feFuncG type="table" tableValues="0.9 1.0"/>
+        <feFuncB type="table" tableValues="0.9   1.0"/>
       </feComponentTransfer>
 
       <!-- BRIGHT: R/G 강조 + Cyan/Blue 감소 (R/Y/G=300, Cyan=-67, Blue=-47) → 반전 → white 하이라이트 -->

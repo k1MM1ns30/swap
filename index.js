@@ -15,6 +15,15 @@
 const params  = new URLSearchParams(location.search);
 const trackId = params.get('trackId'); // NFC 태그 URL에 심은 ID
 
+// ─── 브라우저 언어로 iTunes 국가 코드 결정 ──────────────────────────
+function getItunesCountry() {
+  const lang  = (navigator.language || 'en-US');
+  const parts = lang.split('-');
+  if (parts.length >= 2) return parts[1].toLowerCase(); // "ja-JP" → "jp"
+  const map = { ja:'jp', ko:'kr', zh:'cn', fr:'fr', de:'de', es:'es', pt:'br', it:'it', ru:'ru' };
+  return map[parts[0].toLowerCase()] || 'us';
+}
+
 
 // ─────────────────────────────────────────────────────────────────
 //  SHOW CONTENT — iTunes API 데이터로 UI 채우기
@@ -52,30 +61,36 @@ function showError() {
 // ─────────────────────────────────────────────────────────────────
 //  FETCH — iTunes API에서 곡 정보 가져오기
 // ─────────────────────────────────────────────────────────────────
+function jsonpFetch(country) {
+  return new Promise((resolve, reject) => {
+    const cb    = `_sw${Date.now()}${country}`;
+    const s     = document.createElement('script');
+    const timer = setTimeout(() => { s.remove(); reject(new Error('timeout')); }, 8000);
+    s.src       = `https://itunes.apple.com/lookup?id=${trackId}&entity=song&country=${country}&callback=${cb}`;
+    s.onerror   = () => { clearTimeout(timer); reject(new Error('script load failed')); };
+    window[cb]  = (json) => { clearTimeout(timer); delete window[cb]; s.remove(); resolve(json); };
+    document.head.appendChild(s);
+  });
+}
+
 async function fetchTrack() {
-  if (!trackId) {
-    showError();
-    return;
-  }
+  if (!trackId) { showError(); return; }
 
   try {
-    const data = await new Promise((resolve, reject) => {
-      const cb    = `_sw${Date.now()}`;
-      const s     = document.createElement('script');
-      const timer = setTimeout(() => { s.remove(); reject(new Error('timeout')); }, 8000);
-      s.src       = `https://itunes.apple.com/lookup?id=${trackId}&entity=song&callback=${cb}`;
-      s.onerror   = () => { clearTimeout(timer); reject(new Error('script load failed')); };
-      window[cb]  = (json) => { clearTimeout(timer); delete window[cb]; s.remove(); resolve(json); };
-      document.head.appendChild(s);
-    });
-    const item = data.results?.[0];
+    const country = getItunesCountry();
 
-    if (!item || item.wrapperType === 'artist') {
-      showError();
-      return;
-    }
+    // 로컬 스토어 + US 스토어 병렬 요청 (US가 이미면 한 번만)
+    const [localData, usData] = country === 'us'
+      ? [await jsonpFetch('us'), null]
+      : await Promise.all([jsonpFetch(country), jsonpFetch('us')]);
 
-    showContent(item);
+    const localItem = localData?.results?.[0];
+    const usItem    = usData?.results?.[0];
+
+    if (!localItem || localItem.wrapperType === 'artist') { showError(); return; }
+
+    // 트랙명·아티스트는 로컬, 장르는 항상 US(영어)
+    showContent({ ...localItem, primaryGenreName: usItem?.primaryGenreName || localItem.primaryGenreName });
   } catch (err) {
     console.error('iTunes fetch error:', err);
     showError();
