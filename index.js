@@ -15,28 +15,6 @@
 const params  = new URLSearchParams(location.search);
 const trackId = params.get('trackId'); // NFC 태그 URL에 심은 ID
 
-// ─────────────────────────────────────────────────────────────────
-//  SPARKLES
-// ─────────────────────────────────────────────────────────────────
-function addSparkles() {
-  const layer = document.getElementById('sparkleLayer');
-  for (let i = 0; i < 22; i++) {
-    const el = document.createElement('div');
-    el.className = 'sp';
-    const size = Math.random() * 5 + 2;
-    el.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      top:  ${(Math.random() * 86 + 7).toFixed(1)}%;
-      left: ${(Math.random() * 86 + 7).toFixed(1)}%;
-      --dur: ${(1.4 + Math.random() * 2.2).toFixed(2)}s;
-      --del: ${(Math.random() * 2).toFixed(2)}s;
-      --lo:  ${(Math.random() * 0.3 + 0.1).toFixed(2)};
-      --hi:  ${(Math.random() * 0.5 + 0.5).toFixed(2)};
-    `;
-    layer.appendChild(el);
-  }
-}
 
 // ─────────────────────────────────────────────────────────────────
 //  SHOW CONTENT — iTunes API 데이터로 UI 채우기
@@ -53,8 +31,6 @@ function showContent(data) {
 
   document.getElementById('loadingWrap').style.display = 'none';
   document.getElementById('mainContent').classList.add('visible');
-
-  addSparkles();
 
   document.getElementById('shareBtn').onclick = () => {
     navigator.share?.({
@@ -117,6 +93,14 @@ function toggleCollect() {
   document.getElementById('collectLabel').textContent = collected ? 'Collected\n✓' : 'Collect\nToken';
   document.getElementById('collectBtn').classList.toggle('collected', collected);
   localStorage.setItem(`swap_${trackId}`, collected ? '1' : '0');
+
+  document.querySelector('.album-img-wrap').animate(
+    [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(360deg)' }],
+    { duration: 700, easing: 'ease-in-out' }
+  );
+  setTimeout(() => {
+    document.querySelector('.album-img-wrap').classList.toggle('colored', collected);
+  }, 350);
 }
 
 function restoreCollectState() {

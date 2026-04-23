@@ -43,7 +43,6 @@
           style="display:none;"
           onload="document.getElementById('skeleton').classList.add('hidden'); this.style.display='block';"
         />
-        <div class="sparkle-layer" id="sparkleLayer"></div>
       </div>
     </div>
 
@@ -83,6 +82,60 @@
 
   </div>
 </div>
+
+<svg style="display:none">
+  <defs>
+    <filter id="tritone" color-interpolation-filters="sRGB">
+
+      <!-- DARK: 전채널 균일 흑백 (all 300) → #1795ff ~ white -->
+      <feColorMatrix type="matrix" in="SourceGraphic" result="dark_bw"
+        values="0.333 0.333 0.333 0 0
+                0.333 0.333 0.333 0 0
+                0.333 0.333 0.333 0 0
+                0     0     0     1 0"/>
+      <feComponentTransfer in="dark_bw" result="dark_layer">
+        <feFuncR type="table" tableValues="0.090 1.0"/>
+        <feFuncG type="table" tableValues="0.584 1.0"/>
+        <feFuncB type="table" tableValues="1.0   1.0"/>
+      </feComponentTransfer>
+
+      <!-- MID: 노란 계열 강조 (Yellow=300, rest=-200) → #48c9ff ~ white -->
+      <feColorMatrix type="matrix" in="SourceGraphic" result="mid_bw"
+        values="0.5  0.5  0    0 0
+                0.5  0.5  0    0 0
+                0.5  0.5  0    0 0
+                0    0    0    1 0"/>
+      <feComponentTransfer in="mid_bw" result="mid_layer">
+        <feFuncR type="table" tableValues="0.282 1.0"/>
+        <feFuncG type="table" tableValues="1 1.0"/>
+        <feFuncB type="table" tableValues="1.0   1.0"/>
+      </feComponentTransfer>
+
+      <!-- BRIGHT: R/G 강조 + Cyan/Blue 감소 (R/Y/G=300, Cyan=-67, Blue=-47) → 반전 → white 하이라이트 -->
+      <feColorMatrix type="matrix" in="SourceGraphic" result="bright_pre"
+        values="0.5  0.45  0.05  0 0
+                0.5  0.45  0.05  0 0
+                0  0  0  0 0
+                0    0     0     1 0"/>
+      <feComponentTransfer in="bright_pre" result="bright_layer">
+        <feFuncR type="linear" slope="-1" intercept="1"/>
+        <feFuncG type="linear" slope="-1" intercept="1"/>
+        <feFuncB type="linear" slope="-1" intercept="1"/>
+      </feComponentTransfer>
+
+      <feComponentTransfer in="bright_layer" result="bright_fixed">
+        <feFuncR type="linear" slope="-1" intercept="1"/>
+        <feFuncG type="linear" slope="-1" intercept="1"/>
+        <feFuncB type="linear" slope="-1" intercept="1"/>
+      </feComponentTransfer>
+
+      <!-- 세 레이어 screen 블렌드로 합성 -->
+      <feBlend in="dark_layer" in2="mid_layer"    mode="multiply" result="blend1"/>
+      <feBlend in="blend1"     in2="bright_fixed"  mode="screen"/>
+
+    </filter>
+  </defs>
+</svg>
 
 <script src="index.js"></script>
 </body>
