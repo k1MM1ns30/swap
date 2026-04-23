@@ -36,7 +36,7 @@ function showContent(data) {
   document.getElementById('artistName').textContent = data.artistName       || '—';
   document.getElementById('genreName').textContent  = data.primaryGenreName || '—';
   document.getElementById('appleMusicBtn').href     = data.trackViewUrl     || '#';
-  document.getElementById('tokenId').textContent    = `SWAP 2025 · ${data.trackName || ''}`;
+  document.getElementById('tokenId').textContent    = `SWAP 2026 · ${data.trackName || ''}`;
 
   document.getElementById('loadingWrap').style.display = 'none';
   document.getElementById('mainContent').classList.add('visible');
