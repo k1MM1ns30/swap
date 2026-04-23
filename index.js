@@ -83,9 +83,16 @@ async function fetchTrack() {
   }
 
   try {
-    const res = await fetch(`https://corsproxy.io/?url=https://itunes.apple.com/lookup?id=${trackId}&entity=song`);
-    const json = await res.json();
-    const item = json.results?.[0];
+    const data = await new Promise((resolve, reject) => {
+      const cb    = `_sw${Date.now()}`;
+      const s     = document.createElement('script');
+      const timer = setTimeout(() => { s.remove(); reject(new Error('timeout')); }, 8000);
+      s.src       = `https://itunes.apple.com/lookup?id=${trackId}&entity=song&callback=${cb}`;
+      s.onerror   = () => { clearTimeout(timer); reject(new Error('script load failed')); };
+      window[cb]  = (json) => { clearTimeout(timer); delete window[cb]; s.remove(); resolve(json); };
+      document.head.appendChild(s);
+    });
+    const item = data.results?.[0];
 
     if (!item || item.wrapperType === 'artist') {
       showError();
