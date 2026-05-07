@@ -16,7 +16,8 @@ body {
   min-height: 100dvh;
   width: 100%;
   background: transparent;
-  font-family: 'Courier Prime', monospace;
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -95,10 +96,14 @@ body {
 }
 
 .loading-text {
-  font-size: 10px;
+  font-size: 15px;
+  font-variation-settings: "wght" 700;
   letter-spacing: 0.3em;
   color: rgba(255,255,255,0.6);
   text-transform: uppercase;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: center center;
 }
 
 /* ─── ERROR STATE ─── */
@@ -115,11 +120,15 @@ body {
 .error-icon { font-size: 32px; }
 
 .error-text {
-  font-size: 11px;
+  font-size: 15px;
+  font-variation-settings: "wght" 700;
   letter-spacing: 0.15em;
   color: rgba(255,255,255,0.7);
   text-transform: uppercase;
   line-height: 1.8;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: center center;
 }
 
 /* ─── MAIN CONTENT ─── */
@@ -284,20 +293,27 @@ body {
 .info-row:last-child  { border-bottom: none; padding-bottom: 0; }
 
 .info-key {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 15px;
+  font-variation-settings: "wght" 700;
   color: #002fff;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   flex-shrink: 0;
-  width: 58px;
+  width: 80px;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: left center;
 }
 
 .info-val {
   font-size: 15px;
-  font-weight: 700;
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
   color: #002fff;
   letter-spacing: 0.02em;
+  transform: scaleX(0.8);
+  transform-origin: left center;
+  display: inline-block;
 }
 
 /* ─── BUTTONS ─── */
@@ -338,21 +354,28 @@ body {
 }
 
 .btn-label {
-  font-size: 9px;
-  font-weight: 700;
+  font-size: 13px;
+  font-variation-settings: "wght" 700;
   color: #002fff;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-align: center;
   line-height: 1.4;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: center center;
 }
 
 /* ─── TOKEN ID ─── */
 .token-id {
   margin-top: 20px;
   font-size: 10px;
+  font-variation-settings: "wght" 700;
   color: #002fff;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   animation: fadeUp 0.5s ease 0.7s both;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: center center;
 }
