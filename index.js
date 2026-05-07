@@ -42,8 +42,8 @@ function showContent(data) {
   document.getElementById('tokenId').textContent    = `SWAP 2026 · ${data.trackName || ''}`;
 
   document.getElementById('loadingWrap').style.display = 'none';
+  document.getElementById('errorWrap').style.display   = 'none';
   document.getElementById('mainContent').classList.add('visible');
-
 }
 
 // ─────────────────────────────────────────────────────────────────
@@ -82,11 +82,12 @@ async function fetchTrack() {
 
     const localItem = localData?.results?.[0];
     const usItem    = usData?.results?.[0];
+    const item      = (localItem?.wrapperType !== 'artist' && localItem) || usItem;
 
-    if (!localItem || localItem.wrapperType === 'artist') { showError(); return; }
+    if (!item || item.wrapperType === 'artist') { showError(); return; }
 
-    // 트랙명·아티스트는 로컬, 장르는 항상 US(영어)
-    showContent({ ...localItem, primaryGenreName: usItem?.primaryGenreName || localItem.primaryGenreName });
+    // 트랙명·아티스트는 로컬 우선, 장르는 US(영어) 우선
+    showContent({ ...item, primaryGenreName: usItem?.primaryGenreName || item.primaryGenreName });
   } catch (err) {
     console.error('iTunes fetch error:', err);
     showError();
