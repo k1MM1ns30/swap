@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>SWAP — My Collection</title>
+  <link rel="stylesheet" href="https://use.typekit.net/wfo7ywq.css" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="collection.css" />
+</head>
+<body>
+<div class="page">
+
+  <div class="coll-topbar">
+    <a class="coll-back" href="javascript:history.back()">← BACK</a>
+    <img class="coll-logo" src="assets/swaplogo.svg" alt="SWAP" />
+    <div class="coll-count" id="collCount">0 TRACKS</div>
+  </div>
+
+  <div class="coll-heading">MY COLLECTION</div>
+
+  <div class="coll-list" id="collList"></div>
+
+  <div class="coll-empty" id="collEmpty">
+    <div class="coll-empty-icon">○</div>
+    <div class="coll-empty-text">No tracks collected yet.<br>Scan a SWAP tag to start.</div>
+  </div>
+
+</div>
+<svg style="display:none">
+  <defs>
+    <filter id="tritone" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" in="SourceGraphic" result="dark_bw"
+        values="0.333 0.333 0.333 0 0
+                0.333 0.333 0.333 0 0
+                0.333 0.333 0.333 0 0
+                0     0     0     1 0"/>
+      <feComponentTransfer in="dark_bw" result="dark_layer">
+        <feFuncR type="table" tableValues="0.45 1.0"/>
+        <feFuncG type="table" tableValues="0.4 1.0"/>
+        <feFuncB type="table" tableValues="1   1.0"/>
+      </feComponentTransfer>
+      <feColorMatrix type="matrix" in="SourceGraphic" result="mid_bw"
+        values="0.5  0.5  0    0 0
+                0.5  0.5  0    0 0
+                0.5  0.5  0    0 0
+                0    0    0    1 0"/>
+      <feComponentTransfer in="mid_bw" result="mid_layer">
+        <feFuncR type="table" tableValues="0.3 1.0"/>
+        <feFuncG type="table" tableValues="0.9 1.0"/>
+        <feFuncB type="table" tableValues="0.9 1.0"/>
+      </feComponentTransfer>
+      <feColorMatrix type="matrix" in="SourceGraphic" result="bright_pre"
+        values="0.5  0.45  0.05  0 0
+                0.5  0.45  0.05  0 0
+                0  0  0  0 0
+                0    0     0     1 0"/>
+      <feComponentTransfer in="bright_pre" result="bright_layer">
+        <feFuncR type="linear" slope="-1" intercept="1"/>
+        <feFuncG type="linear" slope="-1" intercept="1"/>
+        <feFuncB type="linear" slope="-1" intercept="1"/>
+      </feComponentTransfer>
+      <feComponentTransfer in="bright_layer" result="bright_fixed">
+        <feFuncR type="linear" slope="-1" intercept="1"/>
+        <feFuncG type="linear" slope="-1" intercept="1"/>
+        <feFuncB type="linear" slope="-1" intercept="1"/>
+      </feComponentTransfer>
+      <feBlend in="dark_layer" in2="mid_layer"    mode="multiply" result="blend1"/>
+      <feBlend in="blend1"     in2="bright_fixed"  mode="screen"/>
+    </filter>
+  </defs>
+</svg>
+
+<script src="collection.js"></script>
+</body>
+</html>

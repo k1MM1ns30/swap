@@ -28,7 +28,10 @@ function getItunesCountry() {
 // ─────────────────────────────────────────────────────────────────
 //  SHOW CONTENT — iTunes API 데이터로 UI 채우기
 // ─────────────────────────────────────────────────────────────────
+let currentTrackData = null;
+
 function showContent(data) {
+  currentTrackData = data;
   const artUrl = (data.artworkUrl100 || '').replace('100x100', '600x600');
 
   document.getElementById('albumArt').src           = artUrl;
@@ -41,13 +44,6 @@ function showContent(data) {
   document.getElementById('loadingWrap').style.display = 'none';
   document.getElementById('mainContent').classList.add('visible');
 
-  document.getElementById('shareBtn').onclick = () => {
-    navigator.share?.({
-      title: `SWAP — ${data.trackName}`,
-      text:  `${data.trackName} by ${data.artistName}`,
-      url:   location.href,
-    });
-  };
 }
 
 // ─────────────────────────────────────────────────────────────────
@@ -111,7 +107,20 @@ function applyCollectUI(state) {
 
 function toggleCollect() {
   collected = !collected;
-  localStorage.setItem(`swap_${trackId}`, collected ? '1' : '0');
+  if (collected && currentTrackData) {
+    const meta = {
+      trackId,
+      trackName:    currentTrackData.trackName        || '',
+      artistName:   currentTrackData.artistName       || '',
+      genreName:    currentTrackData.primaryGenreName || '',
+      artworkUrl:   (currentTrackData.artworkUrl100 || '').replace('100x100', '300x300'),
+      trackViewUrl: currentTrackData.trackViewUrl     || '',
+      collectedAt:  Date.now(),
+    };
+    localStorage.setItem(`swap_${trackId}`, JSON.stringify(meta));
+  } else {
+    localStorage.removeItem(`swap_${trackId}`);
+  }
   applyCollectUI(collected);
 
   const wrap      = document.querySelector('.album-img-wrap');
@@ -128,7 +137,8 @@ function toggleCollect() {
 }
 
 function restoreCollectState() {
-  if (localStorage.getItem(`swap_${trackId}`) === '1') {
+  const val = localStorage.getItem(`swap_${trackId}`);
+  if (val && val !== '0') {
     collected = true;
     applyCollectUI(true);
     document.querySelector('.album-img-wrap').classList.add('colored');

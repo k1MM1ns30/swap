@@ -1,0 +1,190 @@
+/* ─── COLLECTION TOPBAR ─── */
+.coll-topbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.coll-back {
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: left center;
+}
+
+.coll-logo {
+  width: 120px;
+  display: block;
+}
+
+.coll-count {
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.15em;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: right center;
+}
+
+/* ─── HEADING ─── */
+.coll-heading {
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 5px;
+  margin-bottom: 24px;
+  display: inline-block;
+  transform: scaleX(0.71276);
+  transform-origin: center center;
+  align-self: center;
+  text-align: center;
+}
+
+/* ─── LIST ─── */
+.coll-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.32);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1.5px solid rgba(255,255,255,0.75);
+  border-radius: 16px;
+  
+  overflow: hidden;
+}
+
+/* ─── ITEM ─── */
+.coll-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(21,101,192,0.15);
+  transition: background 0.18s;
+}
+
+.coll-item:last-child { border-bottom: none; }
+.coll-item:active { background: rgba(255,255,255,0.2); }
+
+.coll-art {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #0080ff;
+  filter: url(#tritone) contrast(1);
+}
+
+.coll-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.coll-track {
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
+  font-size: 14px;
+  color: #002fff;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: left center;
+  max-width: 140%;
+}
+
+.coll-artist {
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
+  font-size: 11px;
+  color: #002fff;
+  letter-spacing: 0.08em;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: left center;
+}
+
+.coll-genre {
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
+  font-size: 10px;
+  color: #002fff;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: left center;
+}
+
+.coll-arrow {
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
+  font-size: 16px;
+  color: #002fff;
+  flex-shrink: 0;
+}
+
+/* ─── EMPTY STATE ─── */
+.coll-empty {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.coll-empty-icon {
+  font-size: 36px;
+  color: rgba(255,255,255,0.4);
+}
+
+.coll-empty-text {
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.8;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: center center;
+}
+
+/* ─── COLLECTION NAV BUTTON (index.html) ─── */
+.coll-nav-btn {
+  margin-top: 16px;
+  font-family: "cofo-sans-mono-vf", sans-serif;
+  font-variation-settings: "wght" 700;
+  font-size: 11px;
+  color: rgba(0,47,255,0.6);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  transform: scaleX(0.8);
+  transform-origin: center center;
+  padding: 6px 0;
+}
