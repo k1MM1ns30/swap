@@ -6,8 +6,10 @@ for (let i = 0; i < localStorage.length; i++) {
   if (!val || val === '0') continue;
   try {
     const data = JSON.parse(val);
-    if (data.trackName) entries.push(data);
-  } catch {}
+    if (data && data.trackName) entries.push(data);
+  } catch {
+    // 구버전 '1' 형식 — 메타데이터 없어서 표시 불가, 스킵
+  }
 }
 entries.sort((a, b) => b.collectedAt - a.collectedAt);
 

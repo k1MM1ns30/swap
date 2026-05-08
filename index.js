@@ -108,6 +108,10 @@ function applyCollectUI(state) {
 
 function toggleCollect() {
   collected = !collected;
+  if (collected && !currentTrackData) {
+    collected = false;
+    return;
+  }
   if (collected && currentTrackData) {
     const meta = {
       trackId,
